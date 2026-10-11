@@ -1,0 +1,198 @@
+#include <graphics.h>		// 引用图形库头文件
+#include <conio.h>
+#include<math.h>
+typedef struct {
+	// 整型坐标（如果需要小数，改成 float 或 double）
+	int x;
+	int y;
+} coordinate;
+	
+int main()
+{
+	initgraph(600, 600); // 创建绘图窗口，大小为 640x480 像素
+	loadimage(NULL, _T("1.jpg"));
+	for (int i = 0;i < 15;i++)
+	{
+		setlinecolor(0);
+		line(20, 20 + i * 40, 580, 20 + i * 40);
+		setlinecolor(0);
+		line(20 + i * 40, 20, 20 + i * 40, 580);
+	}
+	coordinate a[225];
+	for (int i = 0;i < 225;i++)
+	{
+		a[i].x = i % 15 * 40 + 20;
+		a[i].y = i / 15 * 40 + 20;
+	}
+
+
+	int b[225] = { 0 };
+	ExMessage m;
+	int flag = 1;
+	while (1)
+	{
+		int biao = 0;
+
+		m = getmessage(EX_MOUSE);
+		if (m.lbutton)
+		{
+
+			double min = 1000;
+
+
+
+			for (int i = 0;i < 225;i++)
+			{
+
+				if (sqrt((a[i].x - m.x) * (a[i].x - m.x) + (a[i].y - m.y) * (a[i].y - m.y)) < min)
+				{
+					min = sqrt((a[i].x - m.x) * (a[i].x - m.x) + (a[i].y - m.y) * (a[i].y - m.y));
+					biao = i;
+				}
+
+			}
+
+			
+			if (b[biao] == 0)
+			{
+				if (flag == 1)
+				{
+					b[biao] = 1;
+					setfillcolor(BLACK);
+					solidcircle(a[biao].x, a[biao].y, 16);
+				}
+
+
+				if (flag == 0)
+				{
+					b[biao] = 2;
+					setfillcolor(WHITE);
+					solidcircle(a[biao].x, a[biao].y, 16);
+				}
+
+				flag = 1 - flag;
+			}
+
+		}
+		int count1 = 0;
+		for (int i = biao;i%15 <=15 && b[i] == b[biao];i++)
+		{
+			count1++;
+		}
+		for (int i = biao - 1;i%15 >= 0 && b[i] == b[biao];i--)
+		{
+			count1++;
+		}
+			
+			if (count1 >=5)
+			{
+				if (b[biao] == 1)
+				{
+					
+					
+					TCHAR s[] = _T("黑棋赢");
+					settextstyle(150, 0, _T("黑棋赢"));
+					outtextxy(100, 200, s);
+					break;
+				}
+
+				if ((b[biao] == 2))
+				{
+					
+					
+					TCHAR s[] = _T("白棋赢");
+					settextstyle(150, 0, _T("白棋赢"));
+					outtextxy(100, 200, s);
+					break;
+				}
+			}
+			count1 = 0;
+			for (int j = biao ;j /15<= 15 && b[j] == b[biao];j = j + 15)
+			{
+				count1++;
+			}
+			for (int j = biao - 15;j /15>= 0 && b[j] == b[biao];j = j - 15)
+			{
+				count1++;
+			}
+			if (count1 >= 5)
+			{
+				if (b[biao] == 1)
+				{
+					TCHAR s[] = _T("黑棋赢");
+					settextstyle(150, 0, _T("黑棋赢"));
+					
+					
+					outtextxy(100, 200, s);
+					break;
+				}
+				if ((b[biao] == 2))
+				{
+					TCHAR s[] = _T("白棋赢");
+					settextstyle(150, 0, _T("白棋赢"));
+					outtextxy(100, 200, s);
+					break;
+				}
+			}
+			count1 = 0;
+			for (int k = biao; k <= 225 && (k % 15)>=0&& (k % 15)<=15 && b[k] == b[biao];k = k + 16)
+			{
+				count1++;
+			}
+			for (int k = biao-16; k >= 0 && (k % 15) >= 0 && (k % 15) <= 15 && b[k] == b[biao];k = k -16)
+			{
+				count1++;
+			}
+			if (count1 >= 5)
+
+			{
+				if (b[biao] == 1)
+				{
+					TCHAR s[] = _T("黑棋赢");
+					settextstyle(150, 0, _T("黑棋赢"));
+					outtextxy(100, 200, s);
+					break;
+				}
+				if (b[biao] == 2)
+				{
+					TCHAR s[] = _T("白棋赢");
+					settextstyle(150, 0, _T("白棋赢"));
+					outtextxy(100, 200, s);
+					break;
+				}
+			}
+			
+			count1 = 0;
+			for (int k = biao; k <=225 && (k % 15) >= 0 && (k % 15) <= 15 && b[k] == b[biao];k = k + 14)
+			{
+				count1++;
+			}
+			for (int k = biao-14; k >= 0 && (k % 15) >= 0 && (k % 15) <= 15 && b[k] == b[biao];k = k - 14)
+
+			{
+				count1++;
+			}
+			if (count1 >= 5)
+			{
+				if (b[biao] == 1)
+				{
+					TCHAR s[] = _T("黑棋赢");
+					settextstyle(150, 0, _T("黑棋赢"));
+					outtextxy(100, 200, s);
+					break;
+				}
+				if (b[biao] == 2)
+				{
+					TCHAR s[] = _T("白棋赢");
+					settextstyle(150, 0, _T("白棋赢"));
+					outtextxy(100, 200, s);
+					break;
+				}
+			}
+			
+	}
+	
+		_getch();				// 按任意键继续
+		closegraph();			// 关闭绘图窗口
+		return 0;
+}

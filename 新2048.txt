@@ -1,0 +1,377 @@
+#include <graphics.h>		// 引用图形库头文件
+#include <conio.h>
+#include <time.h>
+#include<math.h>
+#include<stdio.h>
+IMAGE img2, img4, img8, img16, img32, img64, img128, img256, img512, img1024, img2048,bk;
+void sheng(int a[][4])
+{
+	while (1)
+	{
+		int flag = rand() % 10;
+		int num1 = rand() % 4;
+		int num2 = rand() % 4;
+		if (a[num1][num2] == 0)
+		{
+			if (flag % 10 == 0)
+			{
+				
+				a[num1][num2] = 4;
+				
+				break;
+			}
+			else
+			{
+				a[num1][num2] = 2;
+				
+				break;
+			}
+		}
+	}
+
+
+}
+void zuo(int a[][4])
+{
+	for (int i = 0;i < 4;i++)
+	{
+		int biao1 = 0;
+		int arr[4] = { 0 };
+		for (int j = 0;j < 4;j++)
+		{
+			if (a[i][j] != 0)
+			{
+				arr[biao1] = a[i][j];
+				biao1++;
+			}
+		}
+		for (int j = 0;j < 3;j++)
+		{
+			if (arr[j] == arr[j + 1] && arr[j] != 0)
+			{
+				arr[j] *= 2;
+				arr[j + 1] = 0;
+				j++;
+			}
+		}
+		int biao2 = 0;
+		int arr2[4] = { 0 };
+		for (int j = 0;j < 4;j++)
+		{
+			if (arr[j] != 0)
+			{
+				arr2[biao2] = arr[j];
+				biao2++;
+
+			}
+		}
+		for (int j = 0;j < 4;j++)
+		{
+			a[i][j] = arr2[j];
+		}
+	}
+}
+void shang(int a[][4])
+{
+	for (int i = 0;i < 4;i++)
+	{
+		int biao1 = 0;
+		int arr[4] = { 0 };
+		for (int j = 0;j < 4;j++)
+		{
+			if (a[j][i] != 0)
+			{
+				arr[biao1] = a[j][i];
+				biao1++;
+			}
+		}
+		for (int j = 0;j < 3;j++)
+		{
+			if (arr[j] == arr[j + 1] && arr[j] != 0)
+			{
+				arr[j] *= 2;
+				arr[j + 1] = 0;
+				j++;
+			}
+		}
+		int biao2 = 0;
+		int arr2[4] = { 0 };
+		for (int j = 0;j < 4;j++)
+		{
+			if (arr[j] != 0)
+			{
+				arr2[biao2] = arr[j];
+				biao2++;
+
+			}
+		}
+		for (int j = 0;j < 4;j++)
+		{
+			a[j][i] = arr2[j];
+		}
+	}
+}
+
+
+void you(int a[][4])
+{
+	for (int i = 0;i < 4;i++)
+	{
+		int biao1 = 3;
+		int arr[4] = { 0 };
+		for (int j = 3;j >= 0;j--)
+		{
+			if (a[i][j] != 0)
+			{
+				arr[biao1] = a[i][j];
+				biao1--;
+			}
+		}
+		for (int j = 3;j >= 1;j--)
+		{
+			if (arr[j] == arr[j - 1] && arr[j] != 0)
+			{
+				arr[j] *= 2;
+				arr[j - 1] = 0;
+				j--;
+			}
+		}
+		int biao2 = 3;
+		int arr2[4] = { 0 };
+		for (int j = 3;j >= 0;j--)
+		{
+			if (arr[j] != 0)
+			{
+				arr2[biao2] = arr[j];
+				biao2--;
+
+			}
+		}
+		for (int j = 3;j >= 0;j--)
+		{
+			a[i][j] = arr2[j];
+		}
+	}
+
+}
+void xia(int a[][4])
+{
+	for (int i = 0;i < 4;i++)
+	{
+		int biao1 = 3;
+		int arr[4] = { 0 };
+		for (int j = 3;j >= 0;j--)
+		{
+			if (a[j][i] != 0)
+			{
+				arr[biao1] = a[j][i];
+				biao1--;
+			}
+		}
+		for (int j = 3;j >= 1;j--)
+		{
+			if (arr[j] == arr[j - 1] && arr[j] != 0)
+			{
+				arr[j] *= 2;
+				arr[j - 1] = 0;
+				j--;
+			}
+		}
+		int biao2 = 3;
+		int arr2[4] = { 0 };
+		for (int j = 3;j >= 0;j--)
+		{
+			if (arr[j] != 0)
+			{
+				arr2[biao2] = arr[j];
+				biao2--;
+
+			}
+		}
+		for (int j = 3;j >= 0;j--)
+		{
+			a[j][i] = arr2[j];
+		}
+	}
+}
+void drew(int a[][4])
+{
+	for (int i = 0;i < 4;i++)
+	{
+		for (int j = 0;j < 4;j++)
+		{
+			int y= i * 100 + (i + 1) * 10;
+			int x= j * 100 + (j + 1) * 10;
+			if (a[i][j] == 2)
+			{
+				putimage(x, y, &img2);
+			}
+			if (a[i][j] == 4)
+			{
+				putimage(x, y, &img4);
+			}
+			if (a[i][j] == 8)
+			{
+				putimage(x, y, &img8);
+			}
+			if (a[i][j] == 16)
+			{
+				putimage(x, y, &img16);
+			}
+			if (a[i][j] == 32)
+			{
+				putimage(x, y, &img32);
+			}
+			if (a[i][j] == 64)
+			{
+				putimage(x, y, &img64);
+			}
+
+			if (a[i][j] == 128)
+			{
+				putimage(x, y, &img128);
+			}
+			if (a[i][j] == 256)
+			{
+				putimage(x, y, &img256);
+			}
+			if (a[i][j] == 512)
+			{
+					putimage(x, y, &img512);
+			}
+			if (a[i][j] == 1024)
+			{
+				putimage(x, y, &img1024);
+			}
+			if (a[i][j] == 2048)
+			{
+				putimage(x, y, &img2048);
+			}
+			
+		}
+	}
+}
+int main()
+{
+	initgraph(450,450); // 创建绘图窗口
+	loadimage(&img2, _T("2.jpg"), 100, 100);
+	loadimage(&img4, _T("4.jpg"), 100, 100);
+	loadimage(&img8, _T("8.jpg"), 100, 100);
+	loadimage(&img16, _T("16.jpg"), 100, 100);
+	loadimage(&img32, _T("32.jpg"), 100, 100);
+	loadimage(&img64, _T("64.jpg"), 100, 100);
+	loadimage(&img128, _T("128.jpg"), 100, 100);
+	loadimage(&img256, _T("256.jpg"), 100, 100);
+	loadimage(&img512, _T("512.jpg"), 100, 100);
+	loadimage(&img1024, _T("1024.jpg"), 100, 100);
+	loadimage(&img2048, _T("2048.jpg"), 100, 100);
+	srand((unsigned)time(NULL));
+    loadimage(&bk, _T("bk.jpg"));
+
+
+	int  a[4][4] = { 0 };
+
+	sheng(a);
+	sheng(a);
+	
+
+
+	while (true)
+	{
+		putimage(0, 0, &bk);
+		drew(a);
+		int count1 = 0;
+		for (int i = 0;i < 4;i++)
+		{
+			for (int j = 0;j < 4;j++)
+			{
+				if (a[i][j] != 0)
+				{
+					count1++;
+				}
+				if (a[i][j] == 2048)
+				{
+					system("cls");
+					printf("win");
+					_getch();
+					return 0;
+				}
+			}
+		}
+		int count2 = 0;
+		if (count1 == 16)
+		{
+			for (int i = 0;i < 4;i++)
+			{
+				for (int j = 0;j < 3;j++)
+				{
+					if (a[i][j] == a[i][j + 1])
+					{
+						count2++;
+					}
+				}
+			}
+			for (int i = 0;i < 3;i++)
+			{
+				for (int j = 0;j < 4;j++)
+				{
+					if (a[i][j] == a[i + 1][j])
+					{
+						count2++;
+					}
+				}
+			}
+		}
+
+		if (count2 == 0 && count1 == 16)
+		{
+
+			system("cls");
+			printf("lose");
+			_getch();
+			return 0;
+
+		}
+		int m = _getch();// 获取一条按键消息
+		if (m == 224) {
+			m = _getch();
+			//向左
+			if (m == 75)
+			{
+				zuo(a);
+				
+				
+				if (count1 != 16)
+					sheng(a);
+
+			}
+			if (m == 72)
+			{
+				shang(a);
+				
+				
+				if (count1 != 16)
+					sheng(a);
+			}
+			if (m == 77)
+			{
+				you(a);
+				
+				
+				if (count1 != 16)
+					sheng(a);
+			}
+			if (m == 80)
+			{
+				xia(a);
+				
+				
+				if (count1 != 16)
+					sheng(a);
+			}
+
+		}
+	}
+	_getch();				// 按任意键继续
+	return 0;
+}
